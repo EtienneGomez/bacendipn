@@ -4,11 +4,6 @@ header("Access-Control-Allow-Origin: https://witty-pebble-03ffd1910.4.azurestati
 header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
-// Conexión a la base de datos MySQL
-$servername = "servidorpruebaipn1"; // Cambia esto si tu servidor de base de datos tiene un nombre diferente
-$username = "servidorpruebaipn1"; // Cambia esto por tu nombre de usuario de MySQL
-$password = "Etienne098"; // Cambia esto por tu contraseña de MySQL
-$dbname = "base1"; // Cambia esto por el nombre de tu base de datos
 
 // Crear conexión
 try {
@@ -19,6 +14,14 @@ catch (PDOException $e) {
     print("Error connecting to SQL Server.");
     die(print_r($e));
 }
+
+// Conexión a la base de datos MySQL
+$servername = "servidorpruebaipn1"; // Cambia esto si tu servidor de base de datos tiene un nombre diferente
+$username = "servidorpruebaipn1"; // Cambia esto por tu nombre de usuario de MySQL
+$password = "Etienne098"; // Cambia esto por tu contraseña de MySQL
+$dbname = "base1"; // Cambia esto por el nombre de tu base de datos
+
+
 
 // Verificar conexión
 if ($conn->connect_error) {

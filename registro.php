@@ -4,14 +4,6 @@ header("Access-Control-Allow-Origin: https://witty-pebble-03ffd1910.4.azurestati
 header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type");
 
-
-// Datos de conexión a la base de datos
-$servername = "servidorpruebaipn1";
-$username = "servidorpruebaipn1";
-$password = "Etienne098";
-$dbname = "base1";
-
-// Conexión a la base de datos
 try {
     $conn = new PDO("sqlsrv:server = tcp:servidorpruebaipn1.database.windows.net,1433; Database = base1", "servidorpruebaipn1", "Etienne098");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -20,6 +12,15 @@ catch (PDOException $e) {
     print("Error connecting to SQL Server.");
     die(print_r($e));
 }
+
+// Datos de conexión a la base de datos
+$servername = "servidorpruebaipn1";
+$username = "servidorpruebaipn1";
+$password = "Etienne098";
+$dbname = "base1";
+
+// Conexión a la base de datos
+
 
 // Obtener los datos enviados desde el formulario de registro
 $email = isset($_POST["email"]) ? $_POST["email"] : "";
