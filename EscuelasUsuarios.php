@@ -11,7 +11,14 @@ $password = "Etienne098"; // Cambia esto por tu contraseña de MySQL
 $dbname = "base1"; // Cambia esto por el nombre de tu base de datos
 
 // Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    $conn = new PDO("sqlsrv:server = tcp:servidorpruebaipn1.database.windows.net,1433; Database = base1", "servidorpruebaipn1", "Etienne098");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch (PDOException $e) {
+    print("Error connecting to SQL Server.");
+    die(print_r($e));
+}
 
 // Verificar conexión
 if ($conn->connect_error) {
