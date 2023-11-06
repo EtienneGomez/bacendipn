@@ -14,7 +14,7 @@ try {
 
 
 $email = $_POST["email"] ?? "";
-password = $_POST["password"] ?? "";
+$password = $_POST["password"] ?? "";
 
 if ($email !== null && $password !== null) {
     // Consulta para verificar las credenciales de inicio de sesión
