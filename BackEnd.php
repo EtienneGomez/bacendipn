@@ -40,7 +40,7 @@ if(empty($id)){
 
 if ($result->rowCount() > 0) {
     // Inicio de sesión exitoso
-    $row = $result->fetch_assoc();
+    $row = $result->fetch(PDO::FETCH_ASSOC)
     $response = array(
 
         'message' => 'Inicio de sesión exitoso',
@@ -60,7 +60,7 @@ if ($result->rowCount() > 0) {
     echo json_encode($response);
 } else {
     // Credenciales inválidas
-    http_response_code(405);
+    http_response_code(401);
     $response = array('message' => 'Credenciales inválidas');
     echo json_encode($response);
 }
