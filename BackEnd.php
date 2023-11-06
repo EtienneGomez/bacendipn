@@ -5,8 +5,8 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 
 // Conexión a la base de datos MySQL
 $servername = "servidorpruebaipn1"; // Cambia esto si tu servidor de base de datos tiene un nombre diferente
-$username = "servidorpruebaipn1"; // Cambia esto por tu nombre de usuario de MySQL
-$password = "Etienne098"; // Cambia esto por tu contraseña de MySQL
+$username =   "servidorpruebaipn1"; // Cambia esto por tu nombre de usuario de MySQL
+$password = "Etienne09"; // Cambia esto por tu contraseña de MySQL
 $dbname = "base1"; // Cambia esto por el nombre de tu base de datos
 // Crear conexión
 try {
