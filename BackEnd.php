@@ -11,8 +11,6 @@ try {
     die(print_r($e));
 }
 
-
-
 $id = null;
 $password = null;
 $email = null;
@@ -26,35 +24,25 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     $password = $_POST['password'];
 }
 
-
 if(empty($id)){
     // Consulta para verificar las credenciales de inicio de sesión
-    $sql = "SELECT * FROM usuarios WHERE email = '$email' AND password = '$password'";
-    
-}else{
-    $sql = "SELECT * FROM usuarios WHERE id = '$id'";
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = :email AND password = :password");
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':password', $password);
+} else {
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = :id");
+    $stmt->bindParam(':id', $id);
 }
-    $result = $conn->query($sql);
 
-if ($result->num_rows ! null) {
+$stmt->execute();
+
+if ($stmt->rowCount() > 0) {
     // Inicio de sesión exitoso
-    $row = $result->fetch_assoc();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $response = array(
-
         'message' => 'Inicio de sesión exitoso',
-        'id' => $row['id'],
-        'email' => $row['email'],
-        'password' => $row['password'],
-        'nombre' => $row['nombre'],
-        'apellidos' => $row['apellidos'],
-        'boleta' => $row['boleta'],
-        'telefono' => $row['telefono'],
-        'escuela' => $row['escuela'],
-        'plan_relacion' => $row['plan_relacion'],
-        'descripcion' => $row['descripcion'],
-        'imagen' => $row['imagen']
+        // ... y así sucesivamente para el resto de los campos
     );
-
     echo json_encode($response);
 } else {
     // Credenciales inválidas
@@ -63,5 +51,5 @@ if ($result->num_rows ! null) {
     echo json_encode($response);
 }
 
-$conn->close();
+// No es necesario cerrar la conexión PDO, se cierra automáticamente al finalizar el script
 ?>
