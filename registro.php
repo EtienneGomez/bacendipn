@@ -3,65 +3,65 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
-// Crear conexión
 try {
     $conn = new PDO("sqlsrv:server = tcp:servidorpruebaipn1.database.windows.net,1433; Database = base1", "servidorpruebaipn1", "Etienne098");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (PDOException $e) {
+} catch (PDOException $e) {
     print("Error connecting to SQL Server.");
     die(print_r($e));
 }
 
-$id = null;
-$password = null;
-$email = null;
+// Obtener los datos enviados desde el formulario de registro
+$email = $_POST["email"] ?? "";
+$password = $_POST["password"] ?? "";
+$nombre = $_POST["nombre"] ?? "";
+$apellido = $_POST["apellido"] ?? "";
+$boleta = $_POST["boleta"] ?? "";
+$escuela = $_POST["escuela"] ?? "";
+$telefono = $_POST["telefono"] ?? "";
+$plan_relacion = $_POST["planRelacion"] ?? "";
+$descripcion = $_POST["descripcion"] ?? "";
 
-if(isset($_POST['id'])){
-    $id = $_POST['id'];
-}
+// Manejo de la carga de la imagen
+$targetDir = "Project_Polinder/src/media/";
+$fileName = basename($_FILES["imagen"]["name"]);
+$targetFilePath = $targetDir . $fileName;
 
-if(isset($_POST['email']) && isset($_POST['password'])){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-}
-
-if(empty($id)){
-    // Consulta para verificar las credenciales de inicio de sesión
-    $sql = "SELECT * FROM usuarios WHERE email = :email AND password = :password";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['email' => $email, 'password' => $password]);
+if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $targetFilePath)) {
+    $nombreImagen = $fileName; // Si la imagen se sube correctamente, obtiene el nombre del archivo
 } else {
-    $sql = "SELECT * FROM usuarios WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['id' => $id]);
+    $nombreImagen = ""; // Si la imagen no se sube, deja el nombre de la imagen vacío
 }
 
-if ($stmt->rowCount() > 0) {
-    // Inicio de sesión exitoso
-    $row = $stmt->fetch();
-    $response = array(
-        'message' => 'Inicio de sesión exitoso',
-    'id' => $row['id'],
-    'email' => $row['email'],
-    // No incluimos la contraseña por razones de seguridad
-    'nombre' => $row['nombre'],
-    'apellidos' => $row['apellidos'],
-    'boleta' => $row['boleta'],
-    'telefono' => $row['telefono'],
-    'escuela' => $row['escuela'],
-    'plan_relacion' => $row['plan_relacion'],
-    'descripcion' => $row['descripcion'],
-    'imagen' => $row['imagen'] // Asegúr
-    );
+// Query para insertar los datos en la tabla de usuarios
+$sql = "INSERT INTO usuarios (email, password, nombre, apellidos, boleta, escuela, telefono, plan_relacion, descripcion, imagen) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+$stmt = $conn->prepare($sql);
+
+// Ejecutar la consulta preparada
+if ($stmt->execute([$email, $password, $nombre, $apellido, $boleta, $escuela, $telefono, $plan_relacion, $descripcion, $nombreImagen])) {
+    $userId = $conn->lastInsertId(); // Obtener el ID del último registro insertado
+    $response = [
+        'message' => 'Registro exitoso',
+    'userId' => $userId,
+    'email' => $email,
+    'nombre' => $nombre,
+    'apellido' => $apellido,
+    'boleta' => $boleta,
+    'escuela' => $escuela,
+    'telefono' => $telefono,
+    'plan_relacion' => $plan_relacion,
+    'descripcion' => $descripcion,
+    'imagen' => $nombreImagen // Asegúrate de que esta variable contenga la ruta o URL completa de la imagen si es necesario
+    ];
     echo json_encode($response);
 } else {
-    // Credenciales inválidas
-    http_response_code(401);
-    $response = array('message' => 'Credenciales inválidas');
+    // Error en el registro
+    http_response_code(500);
+    $response = ['message' => 'Error en el registro: ' . $stmt->errorInfo()[2]];
     echo json_encode($response);
 }
 
-$conn = null;
+$conn = null; // Cerrar la conexión a la base de datos
 ?>
