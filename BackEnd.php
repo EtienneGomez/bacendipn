@@ -36,7 +36,7 @@ if(empty($id)){
 }
     $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+if ($result->num_rows => 0) {
     // Inicio de sesión exitoso
     $row = $result->fetch_assoc();
     $response = array(
