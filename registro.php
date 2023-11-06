@@ -39,7 +39,7 @@ if(empty($id)){
 
 if ($stmt->rowCount() > 0) {
     // Inicio de sesión exitoso
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $row = $stmt->fetch();
     $response = array(
         'message' => 'Inicio de sesión exitoso',
     'id' => $row['id'],
