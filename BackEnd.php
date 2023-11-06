@@ -27,7 +27,13 @@ if(isset($_POST['email']) && isset($_POST['password'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 }
+// Recoger los datos de POST
+$email = $_POST['email'] ?? null;
+$password = $_POST['password'] ?? null;
 
+// Aquí agregas las instrucciones de error_log
+error_log("Email: " . $email);
+error_log("Password: " . $password);
 
 if(empty($id)){
     // Consulta para verificar las credenciales de inicio de sesión
