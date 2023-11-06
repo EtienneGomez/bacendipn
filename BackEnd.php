@@ -56,12 +56,16 @@ if ($stmt->rowCount() > 0) {
     $response = array(
         'message' => 'Inicio de sesión exitoso',
         'id' => $row['id'],
-        'password' => $row['password'],
-        'apellidos' => $row['apellidos'],
         'email' => $row['email'],
-    // ... aquí continúas con los demás campos que quieras incluir
+        'password' => $row['password'],
+        'nombre' => $row['nombre'],
+        'apellidos' => $row['apellidos'],
+        'boleta' => $row['boleta'],
         'telefono' => $row['telefono'],
         'escuela' => $row['escuela'],
+        'plan_relacion' => $row['plan_relacion'],
+        'descripcion' => $row['descripcion'],
+        'imagen' => $row['imagen']
     );
     echo json_encode($response);
 }
