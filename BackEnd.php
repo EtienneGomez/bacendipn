@@ -28,7 +28,17 @@ try {
         // Inicio de sesión exitoso
         echo json_encode([
             'message' => 'Inicio de sesión exitoso',
-            'user' => $user
+            'id' => $row['id'],
+            'email' => $row['email'],
+            'password' => $row['password'],
+            'nombre' => $row['nombre'],
+            'apellidos' => $row['apellidos'],
+            'boleta' => $row['boleta'],
+            'telefono' => $row['telefono'],
+            'escuela' => $row['escuela'],
+            'plan_relacion' => $row['plan_relacion'],
+            'descripcion' => $row['descripcion'],
+            'imagen' => $row['imagen']
         ]);
     } else {
         // Credenciales inválidas
