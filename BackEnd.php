@@ -37,23 +37,44 @@ if(empty($id)){
 $stmt->execute();
 
 if ($stmt->rowCount() > 0) {
-    // Inicio de sesión exitoso
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $response = array(
-        'message' => 'Inicio de sesión exitoso',
-        'id' => $row['id'],
-        'password' => $row['password'],
-        'apellidos' => $row['apellidos'],
-        'email' => $row['email'],
-    // ... aquí continúas con los demás campos que quieras incluir
-        'telefono' => $row['telefono'],
-        'escuela' => $row['escuela'],
-    );
-    echo json_encode($response);
+   // Inicio de sesión exitoso
+   $row = $result->fetch_assoc();
+   $response = array(
+
+       'message' => 'Inicio de sesión exitoso',
+       'id' => $row['id'],
+       'email' => $row['email'],
+       'password' => $row['password'],
+       'nombre' => $row['nombre'],
+       'apellidos' => $row['apellidos'],
+       'boleta' => $row['boleta'],
+       'telefono' => $row['telefono'],
+       'escuela' => $row['escuela'],
+       'plan_relacion' => $row['plan_relacion'],
+       'descripcion' => $row['descripcion'],
+       'imagen' => $row['imagen']
+   );
+
+   echo json_encode($response);
 } else {
-   // Credenciales inválidas
-   http_response_code(401);
-   $response = array('message' => 'Credenciales inválidas');
+   // Inicio de sesión exitoso
+   $row = $result->fetch_assoc();
+   $response = array(
+
+       'message' => 'Inicio de sesión exitoso',
+       'id' => $row['id'],
+       'email' => $row['email'],
+       'password' => $row['password'],
+       'nombre' => $row['nombre'],
+       'apellidos' => $row['apellidos'],
+       'boleta' => $row['boleta'],
+       'telefono' => $row['telefono'],
+       'escuela' => $row['escuela'],
+       'plan_relacion' => $row['plan_relacion'],
+       'descripcion' => $row['descripcion'],
+       'imagen' => $row['imagen']
+   );
+
    echo json_encode($response);
 }
 
