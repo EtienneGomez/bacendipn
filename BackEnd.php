@@ -31,7 +31,7 @@ if(empty($id)){
     $stmt->bindParam(':password', $password);
 } else {
     $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = :id");
-    $stmt->bindParam(':id', $id);
+    $stmt->bindParam('id', $id);
 }
 
 $stmt->execute();
