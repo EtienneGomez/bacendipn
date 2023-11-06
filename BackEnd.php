@@ -41,13 +41,28 @@ if ($stmt->rowCount() > 0) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $response = array(
         'message' => 'Inicio de sesión exitoso',
-        // ... y así sucesivamente para el resto de los campos
+        'id' => $row['id'],
+        'password' => $row['password'],
+        'apellidos' => $row['apellidos'],
+        'email' => $row['email'],
+    // ... aquí continúas con los demás campos que quieras incluir
+        'telefono' => $row['telefono'],
+        'escuela' => $row['escuela'],
     );
     echo json_encode($response);
 } else {
-    // Credenciales inválidas
-    http_response_code(401);
-    $response = array('message' => 'Credenciales inválidas');
+    // Inicio de sesión exitoso
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $response = array(
+        'message' => 'Inicio de sesión exitoso',
+        'id' => $row['id'],
+        'password' => $row['password'],
+        'apellidos' => $row['apellidos'],
+        'email' => $row['email'],
+    // ... aquí continúas con los demás campos que quieras incluir
+        'telefono' => $row['telefono'],
+        'escuela' => $row['escuela'],
+    );
     echo json_encode($response);
 }
 
