@@ -6,6 +6,10 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-W
 try {
     $conn = new PDO("sqlsrv:server = tcp:servidorpruebaipn1.database.windows.net,1433; Database = base1", "servidorpruebaipn1", "Etienne098");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// SQL Server Extension Sample Code:
+$connectionInfo = array("UID" => "servidorpruebaipn1", "pwd" => "{your_password_here}", "Database" => "base1", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$serverName = "tcp:servidorpruebaipn1.database.windows.net,1433";
+$conn = sqlsrv_connect($serverName, $connectionInfo);
 
     $id = $_POST['id'] ?? null;
     $email = $_POST['email'] ?? null;
