@@ -51,23 +51,10 @@ if ($stmt->rowCount() > 0) {
     );
     echo json_encode($response);
 } else {
-    // Inicio de sesión exitoso
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $response = array(
-        'message' => 'Inicio de sesión exitoso',
-        'id' => $row['id'],
-        'email' => $row['email'],
-        'password' => $row['password'],
-        'nombre' => $row['nombre'],
-        'apellidos' => $row['apellidos'],
-        'boleta' => $row['boleta'],
-        'telefono' => $row['telefono'],
-        'escuela' => $row['escuela'],
-        'plan_relacion' => $row['plan_relacion'],
-        'descripcion' => $row['descripcion'],
-        'imagen' => $row['imagen']
-    );
-    echo json_encode($response);
+   // Credenciales inválidas
+   http_response_code(401);
+   $response = array('message' => 'Credenciales inválidas');
+   echo json_encode($response);
 }
 
 // No es necesario cerrar la conexión PDO, se cierra automáticamente al finalizar el script
