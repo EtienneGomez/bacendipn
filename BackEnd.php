@@ -1,4 +1,7 @@
 <?php
+
+ini_set('log_errors', 'On');
+ini_set('error_log', 'php-errors.log');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
@@ -10,6 +13,8 @@ try {
     print("Error connecting to SQL Server.");
     die(print_r($e));
 }
+
+
 
 $email = $_POST['email'] ?? null;
 $password = $_POST['password'] ?? null;
