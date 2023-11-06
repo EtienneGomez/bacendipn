@@ -60,7 +60,7 @@ if ($result->rowCount() > 0) {
     echo json_encode($response);
 } else {
     // Credenciales inválidas
-    http_response_code(401);
+    http_response_code(406);
     $response = array('message' => 'Credenciales inválidas');
     echo json_encode($response);
 }
