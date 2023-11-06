@@ -3,11 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 
-// Conexión a la base de datos MySQL
-$servername = "servidorpruebaipn1"; // Cambia esto si tu servidor de base de datos tiene un nombre diferente
-$username =   "servidorpruebaipn1"; // Cambia esto por tu nombre de usuario de MySQL
-$password = "Etienne09"; // Cambia esto por tu contraseña de MySQL
-$dbname = "base1"; // Cambia esto por el nombre de tu base de datos
+
 // Crear conexión
 try {
     $conn = new PDO("sqlsrv:server = tcp:servidorpruebaipn1.database.windows.net,1433; Database = base1", "servidorpruebaipn1", "Etienne098");
