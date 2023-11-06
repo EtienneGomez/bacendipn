@@ -1,9 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: https://witty-pebble-03ffd1910.4.azurestaticapps.net");
-
-header("Access-Control-Allow-Methods: GET, POST");
-header("Access-Control-Allow-Headers: Content-Type");
-
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
 try {
     $conn = new PDO("sqlsrv:server = tcp:servidorpruebaipn1.database.windows.net,1433; Database = base1", "servidorpruebaipn1", "Etienne098");
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
